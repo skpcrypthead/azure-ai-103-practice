@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 
 # import namespaces
+#Import namespaces and add the following code to import the namespace you will need to use the OpenAI SDK:
 from openai import OpenAI
 from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 
