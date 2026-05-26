@@ -1,0 +1,10 @@
+# Ignore any virtual environment folder anywhere in the repository
+**/.venv/
+**/venv/
+
+# Ignore any environment secret file anywhere in the repository
+**/.env
+
+# Ignore Python cache files
+**/__pycache__/
+**/*.pyc
