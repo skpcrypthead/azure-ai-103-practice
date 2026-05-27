@@ -25,6 +25,8 @@ def main():
         openai_client=OpenAI(base_url=azure_openai_endpoint,api_key=token_provider())
         
         #loop until the user wants to quit
+            
+        last_response_id = None        
         while True:
             input_text=input('\nEnter a prompt (or type "quit" to exit):')
             if input_text=='quit':
@@ -50,11 +52,14 @@ def main():
                         "role":"assistant",
                         "content":"My name is jonh.How can i help you now."
                     }
+                ],
+                previous_response_id=last_response_id
                     
-                ]
+                
             )
             print("\nmy name is John.I am helping you to answer your queries")
             print(response.output_text)
+            last_response_id=response.id
     except Exception as ex:
         print(ex)
 
