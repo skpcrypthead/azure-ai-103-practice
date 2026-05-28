@@ -1,0 +1,23 @@
+import os
+from dotenv import load_dotenv
+from openai import OpenAI
+from azure.identity import DefaultAzureCredential,get_bearer_token_provider
+load_dotenv()
+endpoint=os.getenv("AZURE_OPENAI_ENDPOINT")
+model=os.getenv("MODEL_DEPLOYMENT")
+token=get_bearer_token_provider(DefaultAzureCredential(),"https://ai.azure.com/.default")
+client=OpenAI(base_url=endpoint,api_key=token)
+last_response_id=None
+stream = client.responses.create(
+    model="gpt-4.1",
+    input="Write a short story about a robot learning to paint.",
+    stream=True,
+    previous_response_id=last_response_id
+)
+
+for event in stream:
+    if event.type=="response.output_text.delta":
+        print(event.delta,end="")
+    elif event.type=="response.completed":
+        last_response_id = event.response.id
+print()
